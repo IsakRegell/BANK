@@ -14,5 +14,6 @@
             Saldo = saldo;
             Pinkod = pinkod;
         }
+       
     }
 }
