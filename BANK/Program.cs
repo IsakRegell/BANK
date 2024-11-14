@@ -42,16 +42,19 @@ namespace BANK
                         switch (menuoptionONE)
                         {
                             case "1":
+                                Console.Clear();
                                 Console.WriteLine($"Ditt saldo är: {konto.Saldo} kr");
                                 help.Pausa();
                                 break;
 
                             case "2":
-                                Console.WriteLine("Överföring av pengar.");
+                                bankHanterare.TransferMoney();
+                                help.Pausa();
                                 break;
 
                             case "3":
-                                Console.WriteLine("Redigera kontoinfo.");
+                                bankHanterare.EditAccountName();
+                                help.Pausa();   
                                 break;
 
                             case "4":
@@ -85,13 +88,5 @@ namespace BANK
 
         }
 
-        //private static Bankkonto? Pinkod(BankHanterare bankHanterare)
-        //{
-        //    Console.WriteLine("Skriv in din pinkod(4 siffror) : ");
-        //    int pinkodinput = Convert.ToInt32(Console.ReadLine());
-
-        //    var konto = bankHanterare.bankkonton.FirstOrDefault(b => b.Pinkod == pinkodinput);
-        //    return konto;
-        //}
     }
 }
