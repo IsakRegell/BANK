@@ -35,7 +35,8 @@ namespace BANK
                         Console.WriteLine("Tryck (1) för att kolla ditt saldo");
                         Console.WriteLine("Tryck (2) för överföra pengar");
                         Console.WriteLine("Tryck (3) för att redigera din kontoinfo");
-                        Console.WriteLine("Tryck (4) för att logga ut");
+                        Console.WriteLine("Tryck (4) för att se historik");
+                        Console.WriteLine("Tryck (5) för att logga ut");
                         Console.WriteLine("Tryck (9) för att stänga av programet");
                         string menuoptionONE = Console.ReadLine()!;
 
@@ -58,6 +59,10 @@ namespace BANK
                                 break;
 
                             case "4":
+                                bankHanterare.PrintTransaction();
+                                help.Pausa();
+                                break;
+                            case "5":
                                 Console.WriteLine("Du har loggat ut");
                                 BigProgram = false;
                                 break;
@@ -66,8 +71,6 @@ namespace BANK
                                 Console.WriteLine("Programmet är avslutat");
                                 BigProgram = false;
                                 ProgramIsRuning = false;
-
-
                                 break;
 
                             default:

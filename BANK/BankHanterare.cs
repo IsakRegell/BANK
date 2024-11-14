@@ -8,14 +8,23 @@ namespace BANK
         public HjälpMetoder help;
         public Bankkonto bank;
         public List<Bankkonto> bankkonton { get; set; }
-
+        public List<Transaction> transaction { get; set; }
         public BankHanterare(DataBas databas)
         {
             this.databas = databas;
             bankkonton = databas.AllaBankontonFrånDB!;
+            transaction = databas.transactionList;
             this.help = new HjälpMetoder(databas);
         }
 
+        public void PrintTransaction()
+        {
+            foreach (var t in transaction)
+            {
+                Console.WriteLine(t);
+            }
+
+        }
 
         public Bankkonto? Pinkod()
         {
@@ -161,16 +170,7 @@ namespace BANK
                 }
                 else
                 {
-                    // If the file doesn't exist, initialize a new structure
-                    var newData = new DataBas
-                    {
-                        AllaBankontonFrånDB = new List<Bankkonto>(),  // This would be your bankkonton data
-                        transactionList = new List<Transaction> { transaction }
-                    };
-
-                    // Create the file and save it with initial content
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    File.WriteAllText(logFilePath, JsonSerializer.Serialize(newData, options));
+                Console.WriteLine("Ett fel uppstod...");
                 }
 
             }
