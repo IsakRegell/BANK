@@ -6,5 +6,10 @@
         public int ToAccount { get; set; }
         public int Amount { get; set; }
         public DateTime Date { get; set; }
+
+        public override string ToString()// Denna Customizear Outputen
+        {
+            return $"From: {FromAccount}, To: {ToAccount}, Amount: {Amount}kr, Date: {Date}";
+        }
     }
 }
