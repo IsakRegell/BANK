@@ -10,6 +10,12 @@ namespace BANK
         [JsonPropertyName("transactionList")]
         public List<Transaction>? transactionList { get; set; }
 
+        [JsonPropertyName("AktivaParkeringar")]
+        public List<Parkering>? AktivaParkeringarFrånDB { get; set; } = new List<Parkering>();
+
+        [JsonPropertyName("AvslutadeParkeringar")]
+        public List<Parkering>? AvslutadeParkeringarFrånDB { get; set; } = new List<Parkering>();
+
     }
 
 }

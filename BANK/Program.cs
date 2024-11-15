@@ -15,6 +15,7 @@ namespace BANK
 
             BankHanterare bankHanterare = new BankHanterare(databas);
             HjälpMetoder help = new HjälpMetoder(databas);
+            ParkeringsHanterare Parkering = new ParkeringsHanterare(databas);
 
 
             bool ProgramIsRuning = true;
@@ -37,6 +38,9 @@ namespace BANK
                         Console.WriteLine("Tryck (3) för att redigera din kontoinfo");
                         Console.WriteLine("Tryck (4) för att se historik");
                         Console.WriteLine("Tryck (5) för att logga ut");
+                        Console.WriteLine("Tryck (6) för att starta parkering");
+                        Console.WriteLine("Tryck (7) för att avsluta parkering");
+                        Console.WriteLine("Tryck (8) för att visa pågåendeparkeringar");
                         Console.WriteLine("Tryck (9) för att stänga av programet");
                         string menuoptionONE = Console.ReadLine()!;
 
@@ -65,6 +69,15 @@ namespace BANK
                             case "5":
                                 Console.WriteLine("Du har loggat ut");
                                 BigProgram = false;
+                                break;
+                            case "6":
+                                Parkering.StartaParkering();
+                                break;
+                            case "7":
+                                //Avsluta parkering
+                                break;
+                            case "8":
+                                //Visa alla aktiva parkeringar
                                 break;
 
                             case "9":
