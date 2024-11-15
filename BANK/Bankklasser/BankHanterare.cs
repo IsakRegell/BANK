@@ -80,25 +80,7 @@ namespace BANK
                 Console.WriteLine($"Överföring genomförd. Ditt nya saldo: {userAccount.Saldo}.");
                 Console.WriteLine($"Mottagarens nya saldo: {targetAccount.Saldo}.");
 
-                // Skapa transaktionen
-                var transaction = new Transaction
-                {
-                    FromAccount = userAccount.Kontonummer,
-                    ToAccount = targetAccount.Kontonummer,
-                    Amount = moneyToTransfer,
-                    Date = DateTime.Now
-                };
-
-                // Lägg till transaktionen till databasen
-                databas.transactionList.Add(transaction);
-
-                // Uppdatera bankkonton
-                databas.AllaBankontonFrånDB = bankkonton;
-
-                // Spara den uppdaterade databas till JSON-fil
-                string dataJSONfilPath = "BankData.json";
-                help.SaveData(dataJSONfilPath, databas);
-
+                LogTransaction(userAccount.Kontonummer, targetAccount.Kontonummer, moneyToTransfer);
             }
             else
             {
@@ -132,50 +114,47 @@ namespace BANK
             }
         }
 
-
-  
-            public void LogTransaction(int fromAccount, int toAccount, int amount)
+        public void LogTransaction(int fromAccount, int toAccount, int amount)
+        {
+            var transaction = new Transaction
             {
-                var transaction = new Transaction
+                FromAccount = fromAccount,
+                ToAccount = toAccount,
+                Amount = amount,
+                Date = DateTime.Now
+            };
+
+            string logFilePath = "BankData.json";
+
+            // Check if the file exists
+            if (File.Exists(logFilePath))
+            {
+                // Read existing data from the file
+                string existingData = File.ReadAllText(logFilePath);
+
+                // Deserialize the existing data into DataBas object
+                var existingBankData = JsonSerializer.Deserialize<DataBas>(existingData) ?? new DataBas();
+
+                // Initialize the transactionList if it's null
+                if (existingBankData.transactionList == null)
                 {
-                    FromAccount = fromAccount,
-                    ToAccount = toAccount,
-                    Amount = amount,
-                    Date = DateTime.Now
-                };
-
-                string logFilePath = "BankData.json";
-
-                // Check if the file exists
-                if (File.Exists(logFilePath))
-                {
-                    // Read existing data from the file
-                    string existingData = File.ReadAllText(logFilePath);
-
-                    // Deserialize the existing data into DataBas object
-                    var existingBankData = JsonSerializer.Deserialize<DataBas>(existingData) ?? new DataBas();
-
-                    // Initialize the transactionList if it's null
-                    if (existingBankData.transactionList == null)
-                    {
-                        existingBankData.transactionList = new List<Transaction>();
-                    }
-
-                    // Add the new transaction to the transaction list
-                    existingBankData.transactionList.Add(transaction);
-
-                    // Save the updated data back to the JSON file, including both Bankkonton and transactionList
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    File.WriteAllText(logFilePath, JsonSerializer.Serialize(existingBankData, options));
-                }
-                else
-                {
-                Console.WriteLine("Ett fel uppstod...");
+                    existingBankData.transactionList = new List<Transaction>();
                 }
 
+                // Add the new transaction to the transaction list
+                existingBankData.transactionList.Add(transaction);
+
+                // Save the updated data back to the JSON file, including both Bankkonton and transactionList
+                help.SaveData(existingBankData);
             }
+            else
+            {
+                Console.WriteLine("Ett fel uppstod...");
+            }
+
         }
     }
+}
 
 
 

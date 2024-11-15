@@ -19,5 +19,14 @@
       "Pinkod": 3456
     }
   ],
-  "transactionList": []
+  "transactionList": [],
+  "AktivaParkeringar": [],
+  "AvslutadeParkeringar": [
+    {
+      "RegNummer": "ABC123",
+      "StartTid": "2024-11-14T13:00:00+01:00",
+      "SlutTid": "2024-11-14T13:02:30+01:00",
+      "TotalKostnad": 150
+    }
+  ]
 }
